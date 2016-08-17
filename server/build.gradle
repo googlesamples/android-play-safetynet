@@ -1,0 +1,51 @@
+
+/*
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+apply plugin: 'java'
+apply plugin:'application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.http-client:google-http-client-jackson2:1.22.0'
+
+    // Apache HttpClient is used to verify the hostname against the signed certificate in OfflineVerify.
+    compile 'org.apache.httpcomponents:httpclient:4.5.2'
+}
+
+
+// Runs offline verification. Provide the signed verification statement via "-PsignedStatement=...".
+task runOfflineVerify(type: JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    main = "OfflineVerify"
+    if(project.hasProperty('signedStatement')){
+        args  signedStatement
+    }
+}
+
+// Runs online verification. Provide the signed verification statement via "-PsignedStatement=...".
+// NOTE: Must set the API key for the Device Verification API in OnlineVerify.java first!
+task runOnlineVerify(type: JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    main = "OnlineVerify"
+    if(project.hasProperty('signedStatement')){
+        args  signedStatement
+    }
+}
