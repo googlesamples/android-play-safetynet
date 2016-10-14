@@ -96,11 +96,15 @@ public class SafetyNetSampleFragment extends Fragment
                             mResult = result.getJwsResult();
                             Log.d(TAG, "Success! SafetyNet result:\n" + mResult + "\n");
 
-                            // TODO(developer): Forward this result to your server together with
-                            // the nonce for verification.
+                            /*
+                             TODO(developer): Forward this result to your server together with
+                             the nonce for verification.
+                             You can also parse the JwsResult locally and look for an 'error' field
+                             first and retry the request with an exponential backoff.
+                             */
 
                         } else {
-                            // An error occurred while communicating with the service
+                            // An error occurred while communicating with the service.
                             Log.d(TAG, "ERROR! " + status.getStatusCode() + " " + status
                                     .getStatusMessage());
                             mResult = null;
