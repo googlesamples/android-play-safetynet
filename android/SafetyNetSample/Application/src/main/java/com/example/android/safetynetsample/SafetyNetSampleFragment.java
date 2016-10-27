@@ -31,6 +31,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -76,8 +78,23 @@ public class SafetyNetSampleFragment extends Fragment
     private void sendSafetyNetRequest() {
         Log.i(TAG, "Sending SafetyNet API request.");
 
-        // Create a nonce for this request.
-        byte[] nonce = getRequestNonce();
+         /*
+        Create a nonce for this request.
+        The nonce is returned as part of the response from the
+        SafetyNet API. Here we append the string to a number of random bytes to ensure it larger
+        than the minimum 16 bytes required.
+        Read out this value and verify it against the original request to ensure the
+        response is correct and genuine.
+        NOTE: A nonce must only be used once and a different nonce should be used for each request.
+        As a more secure option, you can obtain a nonce from your own server using a secure
+        connection. Here in this sample, we generate a String and append random bytes, which is not
+        very secure. Follow the tips on the Security Tips page for more information:
+        https://developer.android.com/training/articles/security-tips.html#Crypto
+         */
+        // TODO(developer): Change the nonce generation to include your own, used once value,
+        // ideally from your remote server.
+        String nonceData = "Safety Net Sample: " + System.currentTimeMillis();
+        byte[] nonce = getRequestNonce(nonceData);
 
         // Call the SafetyNet API asynchronously. The result is returned through the result callback.
         SafetyNet.SafetyNetApi.attest(mGoogleApiClient, nonce)
@@ -99,8 +116,12 @@ public class SafetyNetSampleFragment extends Fragment
                             /*
                              TODO(developer): Forward this result to your server together with
                              the nonce for verification.
-                             You can also parse the JwsResult locally and look for an 'error' field
-                             first and retry the request with an exponential backoff.
+                             You can also parse the JwsResult locally to confirm that the API
+                             returned a response by checking for an 'error' field first and before
+                             retrying the request with an exponential backoff.
+
+                             NOTE: Do NOT rely on a local, client-side only check for security, you
+                             must verify the response on a remote server!
                              */
 
                         } else {
@@ -114,12 +135,24 @@ public class SafetyNetSampleFragment extends Fragment
     }
 
     /**
-     * Generate a 16-byte nonce.
+     * Generates a 16-byte nonce with additional data.
+     * The nonce should also include additional information, such as a user id or any other details
+     * you wish to bind to this attestation. Here you can provide a String that is included in the
+     * nonce after 24 random bytes. During verification, extract this data again and check it
+     * against the request that was made with this nonce.
      */
-    private byte[] getRequestNonce() {
-        byte[] bytes = new byte[16];
+    private byte[] getRequestNonce(String data) {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        byte[] bytes = new byte[24];
         mRandom.nextBytes(bytes);
-        return bytes;
+        try {
+            byteStream.write(bytes);
+            byteStream.write(data.getBytes());
+        } catch (IOException e) {
+            return null;
+        }
+
+        return byteStream.toByteArray();
     }
 
     /**
