@@ -54,71 +54,6 @@ public class OnlineVerify {
     /**
      * Class for parsing JSON data.
      */
-    public static class AttestationStatement {
-        /**
-         * Embedded nonce sent as part of the request.
-         */
-        @Key
-        private String nonce;
-
-        /**
-         * Timestamp of the request.
-         */
-        @Key
-        private long timestampMs;
-
-        /**
-         * Package name of the APK that submitted this request.
-         */
-        @Key
-        private String apkPackageName;
-
-        /**
-         * Digest of the APK that submitted this request.
-         */
-        @Key
-        private String apkDigestSha256;
-
-        /**
-         * The device passed CTS and matches a known profile.
-         */
-        @Key
-        private boolean ctsProfileMatch;
-
-        /**
-         * The device has passed a basic integrity test, but the CTS profile could not be verified.
-         */
-        @Key
-        private boolean basicIntegrity;
-
-        public byte[] getNonce() {
-            return Base64.decodeBase64(nonce);
-        }
-
-        public long getTimestampMs() {
-            return timestampMs;
-        }
-
-        public String getApkPackageName() {
-            return apkPackageName;
-        }
-
-        public byte[] getApkDigestSha256() {
-            return Base64.decodeBase64(apkDigestSha256);
-        }
-
-        public boolean isCtsProfileMatch() {
-            return ctsProfileMatch;
-        }
-
-        public boolean hasBasicIntegrity() {
-            return basicIntegrity;
-        }
-    }
-
-    /**
-     * Class for parsing JSON data.
-     */
     public static class VerificationRequest {
         public VerificationRequest(String signedAttestation) {
             this.signedAttestation = signedAttestation;
@@ -237,11 +172,12 @@ public class OnlineVerify {
         // Timestamp of the request.
         System.out.println("Timestamp: " + stmt.getTimestampMs() + " ms");
 
-        if (stmt.getApkPackageName() != null && stmt.getApkDigestSha256() != null) {
+        if (stmt.getApkPackageName() != null && stmt.getApkDigestSha256() != null && stmt.getApkCertificateDigestSha256() != null) {
             // Package name and digest of APK that submitted this request. Note that these details
             // may be omitted if the API cannot reliably determine the package information.
             System.out.println("APK package name: " + stmt.getApkPackageName());
             System.out.println("APK digest SHA256: " + Arrays.toString(stmt.getApkDigestSha256()));
+            System.out.println("APK certificate digest SHA256: " + Arrays.toString(stmt.getApkCertificateDigestSha256()));
         }
         // Has the device a matching CTS profile?
         System.out.println("CTS profile match: " + stmt.isCtsProfileMatch());
