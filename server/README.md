@@ -1,4 +1,5 @@
-Server SafetyNet Samples
+
+SafetyNet Samples
 ===================================
 
 This sample demonstrates how to verify the response received from the SafetyNet service.
@@ -6,7 +7,7 @@ This sample demonstrates how to verify the response received from the SafetyNet 
 It shows how to extract the compatibility check response from the JWS message, validate its SSL certificate chain, hostname and signature.
 
 This check can be done completely offline (See `OfflineVerify.java`) or by using the _Android Verification API_ to verify the content and signature of the response (see `OnlineVerify`). This REST API requires you to register at the Google Developers console and register for an API key. Detailed steps are available [in the documentation] under _Validating the response with Google APIs_.
-
+Note: The API is rate-limited. For the reason, you should use the API only for testing during the initial development stage. You shouldn't use this verification API in a production scenario.
 
 Note that this sample only provides a basic overview over the verification process and does not cover all possibilities. For example,it is reccomended to always verify the nonce in the request as well. This sample also does not show the app-to-server communication.
 
@@ -51,7 +52,6 @@ Runing the Samples
 * Build and run the [Android component](../android) of this sample.
 * Retrieve a signed statement from the Android app and copy it to your machine. (You can use the "Share Result" option.)
 * Build this server component and provide the signed statement as input.
-
 
 Support
 -------
