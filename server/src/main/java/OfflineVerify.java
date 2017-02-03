@@ -51,7 +51,13 @@ public class OfflineVerify {
         private String apkDigestSha256;
 
         @Key
+        private String[] apkCertificateDigestSha256;
+
+        @Key
         private boolean ctsProfileMatch;
+
+        @Key
+        private boolean basicIntegrity;
 
         public byte[] getNonce() {
             return Base64.decodeBase64(nonce);
@@ -69,8 +75,16 @@ public class OfflineVerify {
             return Base64.decodeBase64(apkDigestSha256);
         }
 
+        public byte[] getApkCertificateDigestSha256() {
+            return Base64.decodeBase64(apkCertificateDigestSha256[0]);
+        }
+
         public boolean isCtsProfileMatch() {
             return ctsProfileMatch;
+        }
+
+        public boolean hasBasicIntegrity() {
+            return basicIntegrity;
         }
     }
 
@@ -148,7 +162,9 @@ public class OfflineVerify {
         System.out.println("Timestamp: " + stmt.getTimestampMs() + " ms");
         System.out.println("APK package name: " + stmt.getApkPackageName());
         System.out.println("APK digest SHA256: " + Arrays.toString(stmt.getApkDigestSha256()));
+        System.out.println("APK certificate digest SHA256: " + Arrays.toString(stmt.getApkCertificateDigestSha256()));
         System.out.println("CTS profile match: " + stmt.isCtsProfileMatch());
+        System.out.println("Basic integrity match: " + stmt.hasBasicIntegrity());
 
         System.out.println("\n** This sample only shows how to verify the authenticity of an "
                 + "attestation response. Next, you must check that the server response matches the "

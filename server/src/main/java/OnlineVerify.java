@@ -80,6 +80,13 @@ public class OnlineVerify {
         private String apkDigestSha256;
 
         /**
+         * Digest of the certificate used to sign APK that submitted this request.
+         */
+        @Key
+        private String[] apkCertificateDigestSha256;
+
+
+        /**
          * The device passed CTS and matches a known profile.
          */
         @Key
@@ -105,6 +112,10 @@ public class OnlineVerify {
 
         public byte[] getApkDigestSha256() {
             return Base64.decodeBase64(apkDigestSha256);
+        }
+
+        public byte[] getApkCertificateDigestSha256() {
+            return Base64.decodeBase64(apkCertificateDigestSha256[0]);
         }
 
         public boolean isCtsProfileMatch() {
@@ -237,11 +248,12 @@ public class OnlineVerify {
         // Timestamp of the request.
         System.out.println("Timestamp: " + stmt.getTimestampMs() + " ms");
 
-        if (stmt.getApkPackageName() != null && stmt.getApkDigestSha256() != null) {
+        if (stmt.getApkPackageName() != null && stmt.getApkDigestSha256() != null && stmt.getApkCertificateDigestSha256() != null) {
             // Package name and digest of APK that submitted this request. Note that these details
             // may be omitted if the API cannot reliably determine the package information.
             System.out.println("APK package name: " + stmt.getApkPackageName());
             System.out.println("APK digest SHA256: " + Arrays.toString(stmt.getApkDigestSha256()));
+            System.out.println("APK certificate digest SHA256: " + Arrays.toString(stmt.getApkCertificateDigestSha256()));
         }
         // Has the device a matching CTS profile?
         System.out.println("CTS profile match: " + stmt.isCtsProfileMatch());
