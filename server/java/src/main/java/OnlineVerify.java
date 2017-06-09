@@ -39,7 +39,7 @@ import java.util.Arrays;
  */
 public class OnlineVerify {
 
-    // Please use the Google Developers Console (https://code.google.com/apis/console)
+    // Please use the Google Developers Console (https://console.developers.google.com/)
     // to create a project, enable the Android Device Verification API, generate an API key
     // and add it here.
     private static final String API_KEY = "YOUR_API_KEY";
@@ -50,71 +50,6 @@ public class OnlineVerify {
     private static final String URL =
             "https://www.googleapis.com/androidcheck/v1/attestations/verify?key="
                     + API_KEY;
-
-    /**
-     * Class for parsing JSON data.
-     */
-    public static class AttestationStatement {
-        /**
-         * Embedded nonce sent as part of the request.
-         */
-        @Key
-        private String nonce;
-
-        /**
-         * Timestamp of the request.
-         */
-        @Key
-        private long timestampMs;
-
-        /**
-         * Package name of the APK that submitted this request.
-         */
-        @Key
-        private String apkPackageName;
-
-        /**
-         * Digest of the APK that submitted this request.
-         */
-        @Key
-        private String apkDigestSha256;
-
-        /**
-         * The device passed CTS and matches a known profile.
-         */
-        @Key
-        private boolean ctsProfileMatch;
-
-        /**
-         * The device has passed a basic integrity test, but the CTS profile could not be verified.
-         */
-        @Key
-        private boolean basicIntegrity;
-
-        public byte[] getNonce() {
-            return Base64.decodeBase64(nonce);
-        }
-
-        public long getTimestampMs() {
-            return timestampMs;
-        }
-
-        public String getApkPackageName() {
-            return apkPackageName;
-        }
-
-        public byte[] getApkDigestSha256() {
-            return Base64.decodeBase64(apkDigestSha256);
-        }
-
-        public boolean isCtsProfileMatch() {
-            return ctsProfileMatch;
-        }
-
-        public boolean hasBasicIntegrity() {
-            return basicIntegrity;
-        }
-    }
 
     /**
      * Class for parsing JSON data.

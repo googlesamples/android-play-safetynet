@@ -17,8 +17,6 @@
 
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.webtoken.JsonWebSignature;
-import com.google.api.client.util.Base64;
-import com.google.api.client.util.Key;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 
 import javax.net.ssl.SSLException;
@@ -33,46 +31,6 @@ import java.util.Arrays;
 public class OfflineVerify {
 
     private static final DefaultHostnameVerifier HOSTNAME_VERIFIER = new DefaultHostnameVerifier();
-
-    /**
-     * Class for parsing the JSON data.
-     */
-    public static class AttestationStatement extends JsonWebSignature.Payload {
-        @Key
-        private String nonce;
-
-        @Key
-        private long timestampMs;
-
-        @Key
-        private String apkPackageName;
-
-        @Key
-        private String apkDigestSha256;
-
-        @Key
-        private boolean ctsProfileMatch;
-
-        public byte[] getNonce() {
-            return Base64.decodeBase64(nonce);
-        }
-
-        public long getTimestampMs() {
-            return timestampMs;
-        }
-
-        public String getApkPackageName() {
-            return apkPackageName;
-        }
-
-        public byte[] getApkDigestSha256() {
-            return Base64.decodeBase64(apkDigestSha256);
-        }
-
-        public boolean isCtsProfileMatch() {
-            return ctsProfileMatch;
-        }
-    }
 
     private static AttestationStatement parseAndVerify(String signedAttestationStatment) {
         // Parse JSON Web Signature format.
@@ -148,6 +106,8 @@ public class OfflineVerify {
         System.out.println("Timestamp: " + stmt.getTimestampMs() + " ms");
         System.out.println("APK package name: " + stmt.getApkPackageName());
         System.out.println("APK digest SHA256: " + Arrays.toString(stmt.getApkDigestSha256()));
+        System.out.println("APK certificate digest SHA256: " +
+                Arrays.deepToString(stmt.getApkCertificateDigestSha256()));
         System.out.println("CTS profile match: " + stmt.isCtsProfileMatch());
 
         System.out.println("\n** This sample only shows how to verify the authenticity of an "
