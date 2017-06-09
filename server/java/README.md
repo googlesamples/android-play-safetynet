@@ -1,4 +1,4 @@
-Server SafetyNet Samples
+Java Server SafetyNet Samples
 ===================================
 
 This sample demonstrates how to verify the response received from the SafetyNet service.

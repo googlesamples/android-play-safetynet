@@ -1,4 +1,4 @@
-Android SafetyNet Sample
+Java Android SafetyNet Sample
 ===================================
 
 This sample demonstrates the SafetyNet API in Google Play Services. This API tests
@@ -7,7 +7,7 @@ Use the option in the toolbar to make an API request.
 The next step is to read and verify the result of the compatibility check. This should be done on
 the server side as shown in the 'server' component of this sample.
 You can share the result of the API call from this app and use it as input into samples for the
-[server component](../../server).
+[server component](../../../server).
 
 For more details, see the guide at https://developer.android.com/training/safetynet/index.html.
 

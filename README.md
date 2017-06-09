@@ -6,17 +6,17 @@ SafetyNet provides services for analyzing the configuration of a particular devi
 
 This repository consists of two components:
 
-* [Android](android/SafetyNetSample): Android sample app, showing the use of Google Play Services for the SafetyNet API on a device.
-* [Server](server/): Two samples, showing how to verify a SafetyNet API response on a server, including offline and online via the Android Device Verification API.
+* [client/java](client/java/SafetyNetSample): Android sample app in Java, showing the use of Google Play Services for the SafetyNet API on a device.
+* [server/java](server/java): Two samples, showing how to verify a SafetyNet API response on a server in Java, including offline and online via the Android Device Verification API.
 
-For more details, see the documenation for each and component and the guide at https://developer.android.com/training/safetynet/index.html .
+For more details, see the documentation for each and component and the guide at https://developer.android.com/training/safetynet/index.html .
 
 
-Runing the Samples
+Running the Samples
 ------------------
-* Build and run the [Android component](android/SafetyNetSample) of this sample.
+* Build and run the [Android component](client/java/SafetyNetSample) of this sample from the  [client/java](client/java) directory.
 * Retrieve a signed statement from the Android app and copy it to your machine. (You can use the "Share Result" option.)
-* Build the [server component](server).
+* Build the [server component](server/java).
 * Run the `OfflineVerify` or `OnlineVerify` checks and provide the signed statement from the app as input.
 
 
@@ -48,4 +48,3 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
-
