@@ -14,7 +14,7 @@ For more details, see the guide at https://developer.android.com/training/safety
 Pre-requisites
 --------------
 
-- Android SDK 24
+- Android SDK 25
 - Latest Android Build Tools
 - Latest Google Play Services
 - Android Support Repository
@@ -30,6 +30,12 @@ Getting Started
 This sample uses the Gradle build system. To build this project, use the
 "gradlew build" command or use "Import Project" in Android Studio and select the directory
 `SafetyNetSample`.
+
+You need to set up an API key for the SafetyNet attestation API and reference it in this project.
+Follow the steps in the [SafetyNet Attestation API][add-api-key] guide to set up an API key in the
+Google Developers console. Then, override the configuration in the `gradle.properties` file to set
+the key. This value is used for the call to
+[`SafetyNetClient# attest()`][attest].
 
 Support
 -------
@@ -59,3 +65,6 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
+
+[attest]: https://developers.google.com/android/reference/com/google/android/gms/safetynet/SafetyNetClient.html#attest(byte[], java.lang.String)
+[add-api-key]: https://developer.android.com/training/safetynet/attestation.html#add-api-key
