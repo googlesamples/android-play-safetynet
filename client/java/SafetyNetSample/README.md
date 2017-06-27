@@ -35,7 +35,7 @@ You need to set up an API key for the SafetyNet attestation API and reference it
 Follow the steps in the [SafetyNet Attestation API][add-api-key] guide to set up an API key in the
 Google Developers console. Then, override the configuration in the `gradle.properties` file to set
 the key. This value is used for the call to
-[`SafetyNetClient# attest()`][attest].
+<a href="https://developers.google.com/android/reference/com/google/android/gms/safetynet/SafetyNetClient.html#attest(byte[], java.lang.String)">`SafetyNetClient# attest()`</a>.
 
 Support
 -------
@@ -66,5 +66,4 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
 
-[attest]: https://developers.google.com/android/reference/com/google/android/gms/safetynet/SafetyNetClient.html#attest(byte[], java.lang.String)
 [add-api-key]: https://developer.android.com/training/safetynet/attestation.html#add-api-key
