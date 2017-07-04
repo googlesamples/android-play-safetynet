@@ -48,17 +48,37 @@ public class SafetyNetSampleFragment extends Fragment {
 
     private static final String TAG = "SafetyNetSample";
 
+    private static final String BUNDLE_RESULT = "result";
+
     private final Random mRandom = new SecureRandom();
 
     private String mResult;
+
+    private String mPendingResult;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_RESULT)) {
+            // Store data as pending result for display after activity has resumed.
+            mPendingResult = savedInstanceState.getString(BUNDLE_RESULT);
+        }
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mPendingResult != null) {
+            // Restore the previous result once the Activity has fully resumed and the logging
+            // framework has been set up.
+            mResult = mPendingResult;
+            mPendingResult = null;
+            Log.d(TAG, "SafetyNet result:\n" + mResult + "\n");
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
@@ -69,6 +89,13 @@ public class SafetyNetSampleFragment extends Fragment {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(BUNDLE_RESULT, mResult);
     }
 
     private void sendSafetyNetRequest() {

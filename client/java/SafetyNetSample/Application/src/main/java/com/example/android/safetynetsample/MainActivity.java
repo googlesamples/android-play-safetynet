@@ -18,11 +18,11 @@
 package com.example.android.safetynetsample;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Html;
-import android.widget.TextView;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.example.android.common.activities.SampleActivityBase;
 import com.example.android.common.logger.Log;
@@ -44,13 +44,15 @@ public class MainActivity extends SampleActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView sampleOutput = (TextView) findViewById(R.id.sample_output);
-        sampleOutput.setText(Html.fromHtml(getString(R.string.intro_message)));
+        TextView sampleOutput = findViewById(R.id.sample_output);
+        sampleOutput.setText(R.string.intro_message);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        SafetyNetSampleFragment fragment = new SafetyNetSampleFragment();
-        transaction.add(fragment, FRAGTAG);
-        transaction.commit();
+        if (savedInstanceState == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            SafetyNetSampleFragment fragment = new SafetyNetSampleFragment();
+            transaction.add(fragment, FRAGTAG);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -75,7 +77,12 @@ public class MainActivity extends SampleActivityBase {
         LogFragment logFragment = (LogFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.log_fragment);
         msgFilter.setNext(logFragment.getLogView());
-        logFragment.getLogView().setTextAppearance(this, R.style.Log);
+        if (Build.VERSION.SDK_INT < 23) {
+            //noinspection deprecation
+            logFragment.getLogView().setTextAppearance(this, R.style.Log);
+        } else {
+            logFragment.getLogView().setTextAppearance(R.style.Log);
+        }
         logFragment.getLogView().setBackgroundColor(Color.WHITE);
 
         Log.i(TAG, "Ready");
