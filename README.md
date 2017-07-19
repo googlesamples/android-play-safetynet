@@ -4,10 +4,11 @@ SafetyNet Samples
 These samples demonstrate the end-to-end use of the SafetyNet API.
 SafetyNet provides services for analyzing the configuration of a particular device to verify that it passes the Android compatibility test.
 
-This repository consists of two components:
+This repository consists of one client and two server components:
 
 * [client/java](client/java/SafetyNetSample): Android sample app in Java, showing the use of Google Play Services for the SafetyNet API on a device.
 * [server/java](server/java): Two samples, showing how to verify a SafetyNet API response on a server in Java, including offline and online via the Android Device Verification API.
+* [server/csharp](server/csharp): Two samples, showing how to verify a SafetyNet API response on a server in C#, including offline and online via the Android Device Verification API.
 
 For more details, see the documentation for each and component and the guide at https://developer.android.com/training/safetynet/index.html .
 
@@ -16,7 +17,7 @@ Running the Samples
 ------------------
 * Build and run the [Android component](client/java/SafetyNetSample) of this sample from the  [client/java](client/java) directory.
 * Retrieve a signed statement from the Android app and copy it to your machine. (You can use the "Share Result" option.)
-* Build the [server component](server/java).
+* Build the [java server component](server/java) or [C# server component](server/csharp).
 * Run the `OfflineVerify` or `OnlineVerify` checks and provide the signed statement from the app as input.
 
 
@@ -32,7 +33,7 @@ submitting a pull request through GitHub. Please see CONTRIBUTING.md for more de
 License
 -------
 
-Copyright 2016 Google Inc.
+Copyright 2017 Google Inc.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor
 license agreements.  See the NOTICE file distributed with this work for
