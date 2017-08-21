@@ -48,7 +48,7 @@ If you are not using Gradle, you can also build this sample with any other build
 
 Runing the Samples
 ------------------
-* Build and run the [Android component](../android) of this sample.
+* Build and run the [Android component](../../android) of this sample.
 * Retrieve a signed statement from the Android app and copy it to your machine. (You can use the "Share Result" option.)
 * Build this server component and provide the signed statement as input.
 
