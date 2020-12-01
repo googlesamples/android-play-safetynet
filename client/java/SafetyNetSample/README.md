@@ -14,7 +14,7 @@ For more details, see the guide at https://developer.android.com/training/safety
 Pre-requisites
 --------------
 
-- Android SDK 25
+- Android SDK 30
 - Latest Android Build Tools
 - Latest Google Play Services
 - Android Support Repository
