@@ -110,6 +110,9 @@ public class OfflineVerify {
                 Arrays.deepToString(stmt.getApkCertificateDigestSha256()));
         System.out.println("CTS profile match: " + stmt.isCtsProfileMatch());
         System.out.println("Has basic integrity: " + stmt.hasBasicIntegrity());
+        System.out.println("Has BASIC evaluation type: " + stmt.hasBasicEvaluationType());
+        System.out.println("Has HARDWARE_BACKED evaluation type: " +
+                stmt.hasHardwareBackedEvaluationType());
 
         System.out.println("\n** This sample only shows how to verify the authenticity of an "
                 + "attestation response. Next, you must check that the server response matches the "

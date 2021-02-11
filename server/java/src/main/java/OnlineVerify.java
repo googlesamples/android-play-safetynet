@@ -182,10 +182,15 @@ public class OnlineVerify {
         System.out.println("CTS profile match: " + stmt.isCtsProfileMatch());
         // Has the device passed CTS (but the profile could not be verified on the server)?
         System.out.println("Basic integrity match: " + stmt.hasBasicIntegrity());
+        // Were typical measurements and reference data used?
+        System.out.println("Has BASIC evaluation type: " + stmt.hasBasicEvaluationType());
+        // Were hardware-backed security features used?
+        System.out.println("Has HARDWARE_BACKED evaluation type: " +
+                stmt.hasHardwareBackedEvaluationType());
 
         System.out.println("\n** This sample only shows how to verify the authenticity of an "
                 + "attestation response. Next, you must check that the server response matches the "
-                + "request by comparing the nonce, package name, timestamp and digest.");
+                + "request by comparing the nonce, package name, timestamp, and digest.");
     }
 
     public static void main(String[] args) {

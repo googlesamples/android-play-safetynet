@@ -59,12 +59,17 @@ public class AttestationStatement extends JsonWebSignature.Payload {
     @Key
     private boolean ctsProfileMatch;
 
-
     /**
      * The device has passed a basic integrity test, but the CTS profile could not be verified.
      */
     @Key
     private boolean basicIntegrity;
+
+    /**
+     * Types of measurements that contributed to this response.
+     */
+    @Key
+    private String evaluationType;
 
     public byte[] getNonce() {
         return Base64.decodeBase64(nonce);
@@ -96,5 +101,13 @@ public class AttestationStatement extends JsonWebSignature.Payload {
 
     public boolean hasBasicIntegrity() {
         return basicIntegrity;
+    }
+
+    public boolean hasBasicEvaluationType() {
+        return evaluationType.contains("BASIC");
+    }
+
+    public boolean hasHardwareBackedEvaluationType() {
+        return evaluationType.contains("HARDWARE_BACKED");
     }
 }
