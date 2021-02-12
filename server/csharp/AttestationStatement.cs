@@ -68,6 +68,27 @@ namespace SafetyNetCheck
         public bool BasicIntegrity { get; private set; }
 
         /// <summary>
+        /// Types of measurements that contributed to this response.
+        /// </summary>
+        public string EvaluationType { get; private set; }
+
+        /// <summary>
+        /// Whether or not typical measurements and reference data were used.
+        /// </summary>
+        public bool HasBasicEvaluationType
+        {
+            get { return EvaluationType.Contains("BASIC"); }
+        }
+
+        /// <summary>
+        /// Whether or not hardware-backed security features were used.
+        /// </summary>
+        public bool HasHardwareBackedEvaluationType
+        {
+            get { return EvaluationType.Contains("HARDWARE_BACKED"); }
+        }
+
+        /// <summary>
         /// Constructs an Attestation statement from a dictionary of claims.
         /// </summary>
         /// <param name="claims">The claims retrieved from an attestation
@@ -125,6 +146,11 @@ namespace SafetyNetCheck
                     claims["basicIntegrity"],
                     out basicIntegrityLocal);
                 BasicIntegrity = basicIntegrityLocal;
+            }
+
+            if (claims.ContainsKey("evaluationType"))
+            {
+                EvaluationType = claims["evaluationType"];
             }
         }
     }
