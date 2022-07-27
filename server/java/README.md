@@ -1,11 +1,3 @@
-Important Notice
-================
-
-SafetyNet Attestation is now deprecated. New and existing developers should use the [Play
-Integrity API](https://developer.android.com/google/play/integrity) instead.
-
-This repository will remain for reference, but will not receive any updates in the future.
-
 Java Server SafetyNet Samples
 ===================================
 
