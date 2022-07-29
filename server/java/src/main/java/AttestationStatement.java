@@ -84,7 +84,7 @@ public class AttestationStatement extends JsonWebSignature.Payload {
     }
 
     public byte[] getApkDigestSha256() {
-        return Base64.decodeBase64(apkDigestSha256);
+        return apkDigestSha256 != null ? Base64.decodeBase64(apkDigestSha256) : new byte[0];
     }
 
     public byte[][] getApkCertificateDigestSha256() {
